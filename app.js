@@ -31,11 +31,10 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-mongoose.connect("mongodb+srv://" + process.env.MONGO_USER + ":" + process.env.MONGO_PASSWORD + "@cluster0.5vdyc.mongodb.net/quoteDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://" + process.env.MONGO_USER + ":" + process.env.MONGO_PASSWORD + "@cluster0.qs8k5.mongodb.net/quoteDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
 const userSchema = new mongoose.Schema({
-    name: String,
+    username: String,
     googleId: String,
     savedQuotes: Array
 });
@@ -64,7 +63,7 @@ passport.use(new GoogleStrategy.Strategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     (accessToken, refreshToken, profile, cb)=>{
-        User.findOrCreate({googleId: profile.id, name: profile.name.givenName}, (err, user)=>{
+        User.findOrCreate({googleId: profile.id, username: profile.name.givenName}, (err, user)=>{
             return cb(err, user);
         });
     }
@@ -88,7 +87,7 @@ let currQuote={
 let currIndex=0;
 
 app.get("/", (req, res)=>{
-    res.render(__dirname + "/views/home", {item: currQuote, quoteIndex: currIndex, loggedIn: req.isAuthenticated(), userName: (req.isAuthenticated() ? req.user.name : "")});
+    res.render(__dirname + "/views/home", {item: currQuote, quoteIndex: currIndex, loggedIn: req.isAuthenticated(), userName: (req.isAuthenticated() ? req.user.username : "")});
 });
 
 app.get("/list", (req, res)=>{
