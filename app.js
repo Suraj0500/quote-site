@@ -162,10 +162,15 @@ app.post("/delete", (req, res)=>{
     req.user.savedQuotes.splice(req.body.quoteIndex, 1);
     req.user.save();
     res.redirect("/list");
-})
-
-
-
-app.listen(3000, ()=>{
-    console.log("Server Started");
 });
+
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, ()=>{
+  console.log("Server started on port " + port);
+});
+
+
