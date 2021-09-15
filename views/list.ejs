@@ -1,0 +1,19 @@
+<%- include("partials/header", {isLoggedIn: loggedIn}) -%>
+<% if(loggedIn===false){ %>
+    <h1>Please Log In</h1>
+<% } else{ %>
+    <h1>Saved Quotes</h1>
+        <% for(let i=0;i<items.length;i++){ %>
+            <div style="padding: 2vh 0">
+                <h2 class="post-title"><%= i+1 %></h2>
+                <h2 class="post-title"><%= items[i].content %></h2>
+                <h3 class="post-author"><%= items[i].author %></h3>
+                <form action="/delete" method="POST">
+                    <button class="btn btn-lg btn-danger" name="quoteIndex" value=<%= i %>><i class="fas fa-trash fa-xl"></i></button>
+                </form>
+            </div>
+        <% } %>
+<% } %>
+
+
+<%- include("partials/footer") -%>

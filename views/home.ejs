@@ -1,0 +1,26 @@
+<%- include("partials/header", {isLoggedIn: loggedIn}) -%>
+
+<% if(loggedIn){ %>
+    <h2 class="welcome-text"><i class="fas fa-hand-sparkles fa-xl" style="color:darkblue"></i> Hi there, <%= userName %></h2>
+<% } %>
+
+<h1>Home</h1>
+<form action="/get-quote" method="POST">
+    <button type="submit" class="btn btn-lg btn-primary">Generate A Quote</button>
+</form>
+
+
+    <div style="padding:2vh 0">
+        <h2 class="post-title"><%= item.text %></h2>
+        <% if(item.author===null) item.author="Unknown" %>
+        <i><h3 class="post-author"><%= item.author!="" ? "-" + item.author : "" %></h3></i>
+        <% if(item.text!=""){ %>
+            <form action="/" method="POST">
+                <button class="btn btn-lg btn-danger" type="submit" name="quoteIndex" value=<%= quoteIndex %>><i class="fas fa-heart fa-xl"></i></button>
+            </form>
+        <% } %>
+        
+    </div>
+
+
+<%- include("partials/footer") -%>

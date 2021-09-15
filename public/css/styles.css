@@ -1,0 +1,107 @@
+html {
+    min-height: 100vh !important;
+}
+
+body{
+    background: rgb(216, 243, 248);
+    min-height: 100vh !important;
+}
+
+.container-fluid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.body-container {
+    min-height: 59vh !important;
+}
+
+.navbar {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 5rem;
+    font-size: 12px;
+    letter-spacing: 5px;
+    background: #1abc9c;
+}
+.navbar-nav li a:hover {
+    color: black !important;
+}
+
+.navbar-nav li a{
+    color: #fff !important;
+}
+
+.navbar-brand a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-padding {
+	padding-bottom: 60px;
+}
+
+.footer {
+    text-align: center;
+	width: 100%;
+	height: 10rem;
+	background-color: #1abc9c;
+}
+
+.footer p {
+	margin-top: 4rem;
+	font-size: 1.4rem;
+    color: #fff;
+}
+
+h1{
+    font-size: 5rem;
+}
+
+input, textarea {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.read-more{
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+}
+
+.read-more-form {
+    display: inline-block;
+}
+
+p{
+    display: inline-block;
+    font-size: 1.7rem;
+}
+
+.title-content{
+    margin-top: 1rem;
+}
+
+.post-title{
+    margin-bottom: 1rem;
+    font-size: 4rem;
+    padding: 0;
+}
+
+.post-author{
+    margin-top: 0;
+    font-size: 1.6rem;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.btn{
+    margin: 3vh 0;
+}
+
+.welcome-text{
+    margin-bottom: 50px;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Quotes Stop</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <script
+      src="https://kit.fontawesome.com/cee4b98545.js"
+      crossorigin="anonymous"
+    ></script>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <p class="navbar-brand"><a href="/">QUOTES STOP</a></p>
+      </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li id="home"><a href="/">HOME</a></li>
+          <li id="your-list"><a href="/list">LIKED POSTS</a></li>
+          <% if(isLoggedIn===true){ %>
+            <li id="logout"><a href="/logout">LOGOUT</a></li>
+          <% } else{ %>
+            <li id="login"><a href="/auth">LOGIN</a></li>
+          <% } %>
+        </ul>
+    </div>
+  </nav>
+  <div class="container body-container">
