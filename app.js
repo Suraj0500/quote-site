@@ -9,6 +9,11 @@ import passport from "passport";
 import passportLocalMongoose from "passport-local-mongoose";
 import GoogleStrategy from "passport-google-oauth20";
 import fetch from "node-fetch";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 
@@ -55,7 +60,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy.Strategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://quotes-stop.netlify.app/auth/google/callback",
+    callbackURL: process.env.SITE_URL + "/auth/google/callback",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     (accessToken, refreshToken, profile, cb)=>{
