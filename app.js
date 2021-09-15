@@ -55,7 +55,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new GoogleStrategy.Strategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://stablx-backend-challenge.herokuapp.com/auth/google/callback",
+    callbackURL: "http://quote-site.herokuapp.com//auth/google/callback",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
     },
     (accessToken, refreshToken, profile, cb)=>{
