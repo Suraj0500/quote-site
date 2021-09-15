@@ -83,22 +83,22 @@ let currQuote={
 let currIndex=0;
 
 app.get("/", (req, res)=>{
-    res.render("home", {item: currQuote, quoteIndex: currIndex, loggedIn: req.isAuthenticated(), userName: (req.isAuthenticated() ? req.user.name : "")});
+    res.render(__dirname + "/views/home", {item: currQuote, quoteIndex: currIndex, loggedIn: req.isAuthenticated(), userName: (req.isAuthenticated() ? req.user.name : "")});
 });
 
 app.get("/list", (req, res)=>{
     if(req.isAuthenticated()){
-        res.render("list", {items: req.user.savedQuotes, loggedIn: req.isAuthenticated()});
+        res.render(__dirname + "/views/list", {items: req.user.savedQuotes, loggedIn: req.isAuthenticated()});
     }
     else{
-        res.render("list", {items: [], loggedIn: req.isAuthenticated()});
+        res.render(__dirname + "/views/list", {items: [], loggedIn: req.isAuthenticated()});
     }
     
     
 });
 
 app.get("/auth", (req, res)=>{
-    res.render("auth");
+    res.render(__dirname + "/views/auth");
 });
 
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
