@@ -3,7 +3,7 @@ Created a site on which a user can log in with their google account and generate
 
 ## Site Link
 
-Access the site at  https://quotes-stop.herokuapp.com/
+Access the site at https://quotes-stop.onrender.com/
 
 ## Technologies
 
