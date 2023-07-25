@@ -11,12 +11,12 @@
 
 
     <div style="padding:2vh 0">
-        <h2 class="post-title"><%= item.text %></h2>
+        <h2 class="post-title"><%= item.quote %></h2>
         <% if(item.author===null) item.author="Unknown" %>
         <i><h3 class="post-author"><%= item.author!="" ? "-" + item.author : "" %></h3></i>
-        <% if(item.text!=""){ %>
+        <% if(item.quote!=""){ %>
             <form action="/" method="POST">
-                <button class="btn btn-lg btn-danger" type="submit" name="quoteIndex" value=<%= quoteIndex %>><i class="fas fa-heart fa-xl"></i></button>
+                <button class="btn btn-lg btn-danger" type="submit"><i class="fas fa-heart fa-xl"></i></button>
             </form>
         <% } %>
         

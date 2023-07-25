@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import express from "express";
-import ejs from "ejs";
 import bodyParser from "body-parser";
 import findOrCreate from "mongoose-findorcreate";
 import mongoose from "mongoose";
@@ -8,7 +7,7 @@ import session from "express-session";
 import passport from "passport";
 import passportLocalMongoose from "passport-local-mongoose";
 import GoogleStrategy from "passport-google-oauth20";
-import fetch from "node-fetch";
+import fetch, { Headers } from "node-fetch";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
@@ -69,25 +68,27 @@ passport.use(new GoogleStrategy.Strategy({
     }
 ));
 
-let allQuotes=[];
-
-const promise = fetch("https://type.fit/api/quotes")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(data) {
-    allQuotes=data;
-  });
+function getQuote() {
+    const headers = new Headers({
+        'X-Api-Key': process.env.QUOTES_API_KEY
+    });
+    const promise = fetch("https://api.api-ninjas.com/v1/quotes?limit=1", { method: 'GET', headers: headers})
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        return data[0];
+      });
+    return promise;
+}
 
 let currQuote={
-    text: "",
+    quote: "",
     author:""
 };
 
-let currIndex=0;
-
 app.get("/", (req, res)=>{
-    res.render(__dirname + "/views/home", {item: currQuote, quoteIndex: currIndex, loggedIn: req.isAuthenticated(), userName: (req.isAuthenticated() ? req.user.username : "")});
+    res.render(__dirname + "/views/home", {item: currQuote, loggedIn: req.isAuthenticated(), userName: (req.isAuthenticated() ? req.user.username : "")});
 });
 
 app.get("/list", (req, res)=>{
@@ -116,17 +117,21 @@ app.get("/auth/google/callback", passport.authenticate("google", {failureRedirec
 app.get("/logout", (req, res)=>{
     req.logout();
     res.redirect("/");
-    currQuote.text="";
+    currQuote.quote="";
     currQuote.author="";
-    currIndex=0;
 });
 
 
 app.post("/get-quote", (req, res)=>{
-    const index = Math.floor(Math.random()*allQuotes.length);
-    currQuote=allQuotes[index];
-    currIndex=index;
-    res.redirect("/");
+    getQuote()
+    .then(function(quote) {
+        currQuote.quote = quote.quote;
+        currQuote.author = quote.author;
+        return;
+    })
+    .then(function() {
+        res.redirect("/");
+    }); 
 });
 
 
@@ -138,12 +143,12 @@ app.post("/", (req, res)=>{
                 if(foundUser){
                     let alreadyLiked = false;
                     foundUser.savedQuotes.forEach((quote)=>{
-                        if(quote.content==allQuotes[req.body.quoteIndex].text && quote.author==allQuotes[req.body.quoteIndex].author) alreadyLiked=true;
+                        if(quote.content==currQuote.quote && quote.author==currQuote.author) alreadyLiked=true;
                     });
-                    if(alreadyLiked==false){
+                    if(!alreadyLiked){
                         foundUser.savedQuotes.push({
-                            content: allQuotes[req.body.quoteIndex].text,
-                            author: allQuotes[req.body.quoteIndex].author
+                            content: currQuote.quote,
+                            author: currQuote.author
                         });
                         foundUser.save(()=>{
                             res.redirect("/");
